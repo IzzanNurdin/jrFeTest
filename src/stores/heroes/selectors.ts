@@ -1,4 +1,4 @@
-import * as Heroes from '~/interfaces/heroes';
+import * as Heroes from "~/interfaces/heroes";
 
 export function getHeroesLoading(store: Heroes.HeroesState) {
   return store.loading;
@@ -9,7 +9,7 @@ export function getHeroesIndex(store: Heroes.HeroesState) {
 }
 
 export function getHeroesData(store: Heroes.HeroesState) {
-  return store.results;
+  return store.data;
 }
 
 export function getHeroesErrors(store: Heroes.HeroesState) {

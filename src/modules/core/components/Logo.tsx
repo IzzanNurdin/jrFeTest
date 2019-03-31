@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import * as React from "react";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
-import KataLogo from '~/assets/images/logo.svg';
+import KataLogo from "../../../assets/images/logo.svg";
 
 const Logo: React.SFC = () => {
   return (
@@ -20,7 +20,7 @@ const StyledNavLink = styled(NavLink)`
   display: inline-block;
 `;
 
-const Root = styled('div')`
+const Root = styled("div")`
   width: 64px;
   height: 100%;
   text-align: center;

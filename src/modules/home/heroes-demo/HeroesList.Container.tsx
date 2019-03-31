@@ -1,17 +1,22 @@
-import React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import React from "react";
+import { Dispatch } from "redux";
+import { connect } from "react-redux";
 
-import { RootStore } from '~/interfaces/stores';
-import { Hero } from '~/interfaces/heroes';
-import { getHeroesLoading, getHeroesErrors, getHeroesData, getHeroesIndex } from '~/stores/heroes/selectors';
-import { fetchRequest } from '~/stores/heroes/actions';
-import { DataMap } from '~/interfaces/types';
+import { RootStore } from "~/interfaces/stores";
+import { Hero } from "~/interfaces/heroes";
+import {
+  getHeroesLoading,
+  getHeroesErrors,
+  getHeroesData,
+  getHeroesIndex
+} from "../../../stores/heroes/selectors";
+import { fetchRequest } from "../../../stores/heroes/actions";
+import { DataMap } from "~/interfaces/types";
 
-import HeroesList from './HeroesList';
+import HeroesList from "./HeroesList";
 
 interface PropsFromState {
-  loading: string;
+  loading: boolean;
   errors?: string;
   index: string[];
   data: DataMap<Hero>;
@@ -23,8 +28,18 @@ interface PropsFromDispatch {
 
 type Props = PropsFromState & PropsFromDispatch;
 
-const HeroesListContainer: React.FC<Props> = ({ loading, index, data, fetch }) => (
-  <HeroesList loading={loading} index={index} data={data} fetchRequest={fetch} />
+const HeroesListContainer: React.FC<Props> = ({
+  loading,
+  index,
+  data,
+  fetch
+}) => (
+  <HeroesList
+    loading={loading}
+    index={index}
+    data={data}
+    fetchRequest={fetch}
+  />
 );
 
 const mapStateToProps = ({ heroes }: RootStore) => {

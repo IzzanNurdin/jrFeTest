@@ -1,7 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 // import { Route, Switch, RouteComponentProps } from 'react-router';
 // import HeroesDemoPage from './heroes-demo';
-import HomeSecondPage from './pages/second';
+import HomeSecondPage from "./pages/second";
+import { Switch, RouteComponentProps, Route } from "react-router";
+import { HeroesDemoPage } from "./heroes-demo/Page";
 
 const HomeModule: React.SFC<RouteComponentProps> = ({ match }) => (
   <Switch>

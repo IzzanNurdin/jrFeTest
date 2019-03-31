@@ -7,6 +7,7 @@ import { History } from "history";
 import { KataReset } from "@kata-kit/reset";
 
 import { RootStore } from "./interfaces/stores";
+import App from "./modules/core/App";
 
 interface MainProps {
   store: Store<RootStore>;
