@@ -26,6 +26,7 @@ interface HeroesListProps {
 
 interface HomeFirstPageState {
   open: boolean;
+  hero: Hero;
 }
 
 const API_ENDPOINT =
@@ -36,7 +37,18 @@ class HeroesList extends React.Component<HeroesListProps, HomeFirstPageState> {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
+      hero: {
+        id: 0,
+        name: "",
+        localized_name: "",
+        primary_attr: "",
+        attack_type: "",
+        roles: [],
+        img: "",
+        icon: "",
+        legs: 0
+      }
     };
   }
 
@@ -44,68 +56,53 @@ class HeroesList extends React.Component<HeroesListProps, HomeFirstPageState> {
     this.props.fetchRequest();
   }
 
-  toggleDrawer() {
+  toggleDrawer(hero: Hero) {
     this.setState(prevState => ({
-      open: !prevState.open
+      open: !prevState.open,
+      hero: hero
     }));
   }
 
   renderInner() {
+    const style: React.CSSProperties = {
+      position: "relative",
+      overflow: "hidden",
+      width: "100%",
+      height: "100%",
+      padding: "20px"
+    };
+    const image: React.CSSProperties = {
+      borderRadius: "20px"
+    };
     return (
       <>
-        <DrawerHeader title="Drawer Title" />
-        <DrawerBody>
-          <p>
-            Congratulations! You have opened this drawer.{" "}
-            <a
-              href="https://www.youtube.com/watch?v=ctSYCoMF4z4"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Have some music.
-            </a>
-          </p>
-
-          <p>
-            <a
-              href="https://www.youtube.com/watch?v=mUGDxyG1kOI"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Lorem ipsum dolor sit amet
-            </a>
-            , consectetur adipiscing elit. Aliter enim nosmet ipsos nosse non
-            possumus. Quae ista amicitia est? Duo Reges: constructio interrete.
-            An hoc usque quaque, aliter in vita? Primum quid tu dicis breve? Cum
-            ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus
-            haec. Sed finge non solum callidum eum, qui aliquid improbe faciat,
-            verum etiam praepotentem, ut M.{" "}
-            <i>Tibi hoc incredibile, quod beatissimum.</i>{" "}
-          </p>
-
-          <p>
-            Quis animo aequo videt eum, quem inpure ac flagitiose putet vivere?
-            Etsi ea quidem, quae adhuc dixisti, quamvis ad aetatem recte isto
-            modo dicerentur. Non minor, inquit, voluptas percipitur ex
-            vilissimis rebus quam ex pretiosissimis. Illa tamen simplicia,
-            vestra versuta. Si qua in iis corrigere voluit, deteriora fecit.
-            Stuprata per vim Lucretia a regis filio testata civis se ipsa
-            interemit.{" "}
-          </p>
-
-          <p>
-            Huic ego, si negaret quicquam interesse ad beate vivendum quali
-            uteretur victu, concederem, laudarem etiam; Est enim effectrix
-            multarum et magnarum voluptatum. At miser, si in flagitiosa et
-            vitiosa vita afflueret voluptatibus. At iste non dolendi status non
-            vocatur voluptas. Nunc ita separantur, ut disiuncta sint, quo nihil
-            potest esse perversius. <i>Hic nihil fuit, quod quaereremus.</i>{" "}
-            <b>Frater et T.</b> Ergo id est convenienter naturae vivere, a
-            natura discedere. Si quae forte-possumus.{" "}
-          </p>
-        </DrawerBody>
+        <DrawerHeader title={this.state.hero.localized_name} />
+        <div style={style}>
+          <div className="mb-2">
+            <img
+              src={API_ENDPOINT + this.state.hero.img}
+              style={image}
+              alt=""
+            />
+          </div>
+          <div className="mb-2">
+            {this.state.hero.attack_type} -{" "}
+            <span>{this.state.hero.roles.join(", ")}</span>
+          </div>
+          <CardInfo>
+            <CardInfoKey>Primary Attr</CardInfoKey>
+            <CardInfoValue>{this.state.hero.primary_attr}</CardInfoValue>
+          </CardInfo>
+          <CardInfo>
+            <CardInfoKey>Legs</CardInfoKey>
+            <CardInfoValue>{this.state.hero.legs}</CardInfoValue>
+          </CardInfo>
+        </div>
         <DrawerFooter>
-          <Button color="primary" onClick={() => this.toggleDrawer()}>
+          <Button
+            color="primary"
+            onClick={() => this.toggleDrawer(this.state.hero)}
+          >
             Close drawer
           </Button>
         </DrawerFooter>
@@ -126,7 +123,10 @@ class HeroesList extends React.Component<HeroesListProps, HomeFirstPageState> {
             : null}
         </DashboardCards>
 
-        <Drawer isOpen={open} onClose={() => this.toggleDrawer()}>
+        <Drawer
+          isOpen={open}
+          onClose={() => this.toggleDrawer(this.state.hero)}
+        >
           {this.renderInner()}
         </Drawer>
       </React.Fragment>
@@ -147,6 +147,7 @@ class HeroesList extends React.Component<HeroesListProps, HomeFirstPageState> {
 
       return (
         <Card
+          onClick={() => this.toggleDrawer(hero)}
           key={hero.id}
           title={hero.localized_name}
           avatarComponent={<Avatar src={API_ENDPOINT + hero.img} size={40} />}

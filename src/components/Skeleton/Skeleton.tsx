@@ -1,8 +1,8 @@
-import React from 'react';
-import classnames from 'classnames';
-import styled, { keyframes } from 'styled-components';
+import React from "react";
+import classnames from "classnames";
+import styled, { keyframes } from "styled-components";
 
-import { variables } from '@kata-kit/theme';
+import { variables } from "@kata-kit/theme";
 
 interface SkeletonProps {
   className?: string;
@@ -11,25 +11,32 @@ interface SkeletonProps {
   small?: boolean;
 }
 
-export const Skeleton: React.FC<SkeletonProps> = ({ className, numberOfLines, small }) => {
+export const Skeleton: React.FC<SkeletonProps> = ({
+  className,
+  numberOfLines,
+  small
+}) => {
   if (numberOfLines && numberOfLines > 1) {
     return (
       <Multiline>
         {[...Array(numberOfLines)].map((_, i) => (
-          <Wrapper key={i} className={classnames(className, small && 'is-small')} />
+          <Wrapper
+            key={i}
+            className={classnames(className, small && "is-small")}
+          />
         ))}
       </Multiline>
     );
   }
 
-  return <Wrapper className={classnames(className, small && 'is-small')} />;
+  return <Wrapper className={classnames(className, small && "is-small")} />;
 };
 
 Skeleton.defaultProps = {
   numberOfLines: 1
 };
 
-const Wrapper = styled('div')`
+const Wrapper = styled("div")`
   display: block;
   position: relative;
   overflow: hidden;
@@ -43,7 +50,7 @@ const Wrapper = styled('div')`
   }
 `;
 
-const Multiline = styled('div')`
+const Multiline = styled("div")`
   ${Wrapper} {
     margin-bottom: ${variables.spaces.space1};
 
